@@ -1,0 +1,55 @@
+<UserControl x:Class="InfoCam.Views.IncidenciasView"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             mc:Ignorable="d" 
+             d:DesignHeight="450" d:DesignWidth="800">
+    <Grid Background="{StaticResource BackgroundBrush}">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="*"/>
+        </Grid.RowDefinitions>
+
+        <StackPanel Grid.Row="0" Orientation="Horizontal" Margin="10">
+            <TextBlock Text="Lista de Incidencias" FontSize="20" FontWeight="Bold" Foreground="{StaticResource TextPrimaryBrush}" VerticalAlignment="Center" Margin="0,0,20,0"/>
+            
+            <Button Name="AddButton" Content="+ Nueva Incidencia" Height="35" Padding="15,0"
+                    Click="AddButton_Click"
+                    Background="{StaticResource AccentBrush}" 
+                    Foreground="White" 
+                    BorderThickness="0" 
+                    Cursor="Hand" 
+                    Margin="0,0,10,0"/>
+            
+            <Button Name="EditButton" Content="✏ Editar" Height="35" Padding="15,0"
+                    Click="EditButton_Click"
+                    Background="{StaticResource SurfaceBrush}" 
+                    Foreground="{StaticResource TextPrimaryBrush}" 
+                    BorderThickness="1" 
+                    BorderBrush="#444444"
+                    Cursor="Hand" 
+                    Margin="0,0,10,0"/>
+            
+            <Button Name="DeleteButton" Content="🗑 Eliminar" Height="35" Padding="15,0"
+                    Click="DeleteButton_Click"
+                    Background="#CC3333" 
+                    Foreground="White" 
+                    BorderThickness="0" 
+                    Cursor="Hand"/>
+        </StackPanel>
+
+        <DataGrid Grid.Row="1" Name="IncidenciasGrid" AutoGenerateColumns="False" CanUserAddRows="False" GridLinesVisibility="Horizontal" Margin="10" IsReadOnly="True" SelectionMode="Extended">
+             <DataGrid.Columns>
+                 <DataGridTextColumn Header="ID" Binding="{Binding Id}" Width="50"/>
+                 <DataGridTextColumn Header="Tipo" Binding="{Binding TipoIncidencia}" Width="150"/>
+                 <DataGridTextColumn Header="Nombre" Binding="{Binding Nombre}" Width="150"/>
+                 <DataGridTextColumn Header="Causa" Binding="{Binding Causa}" Width="150"/>
+                 <DataGridTextColumn Header="Inicio" Binding="{Binding Fecha_inicio, StringFormat=d}" Width="100"/>
+                 <DataGridTextColumn Header="User ID" Binding="{Binding Usuario.Id}" Width="80"/>
+                 <DataGridTextColumn Header="Latitud" Binding="{Binding Latitud}" Width="100"/>
+                 <DataGridTextColumn Header="Longitud" Binding="{Binding Longitud}" Width="100"/>
+             </DataGrid.Columns>
+        </DataGrid>
+    </Grid>
+</UserControl>

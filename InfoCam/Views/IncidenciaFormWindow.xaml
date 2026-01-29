@@ -1,0 +1,142 @@
+<Window x:Class="InfoCam.Views.IncidenciaFormWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:InfoCam.Views"
+        mc:Ignorable="d"
+        Title="Incidencia" Height="600" Width="450" WindowStartupLocation="CenterScreen"
+        Icon="pack://application:,,,/app_icon.png"
+        Background="{StaticResource BackgroundBrush}">
+    
+    <Border Background="{StaticResource BackgroundBrush}" Padding="20">
+        <Grid>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="Auto"/> <!-- Title -->
+                <RowDefinition Height="Auto"/> <!-- Tipo & Nombre -->
+                <RowDefinition Height="Auto"/> <!-- Causa -->
+                <RowDefinition Height="Auto"/> <!-- Fechas -->
+                <RowDefinition Height="Auto"/> <!-- Ubicacion -->
+                <RowDefinition Height="Auto"/> <!-- Error Message -->
+                <RowDefinition Height="Auto"/> <!-- Buttons -->
+            </Grid.RowDefinitions>
+
+            <!-- Title -->
+            <TextBlock Grid.Row="0" Text="Detalles de Incidencia" FontSize="22" FontWeight="SemiBold" 
+                       Foreground="{StaticResource TextPrimaryBrush}" HorizontalAlignment="Center" Margin="0,0,0,25"/>
+
+            <!-- Row 1: Tipo & Nombre -->
+            <Grid Grid.Row="1" Margin="0,0,0,15">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="*"/>
+                    <ColumnDefinition Width="15"/>
+                    <ColumnDefinition Width="*"/>
+                </Grid.ColumnDefinitions>
+
+                <StackPanel Grid.Column="0">
+                    <TextBlock Text="Tipo" Foreground="{StaticResource TextSecondaryBrush}" Margin="0,0,0,5"/>
+                    <ComboBox x:Name="TipoCombo" Height="35" Style="{StaticResource ModernComboBoxStyle}"/>
+                </StackPanel>
+
+                <StackPanel Grid.Column="2">
+                    <TextBlock Text="Nombre" Foreground="{StaticResource TextSecondaryBrush}" Margin="0,0,0,5"/>
+                    <TextBox x:Name="NombreBox" Height="35" Style="{StaticResource ModernTextBoxStyle}"/>
+                </StackPanel>
+            </Grid>
+
+            <!-- Row 2: Causa -->
+            <StackPanel Grid.Row="2" Margin="0,0,0,15">
+                <TextBlock Text="Causa" Foreground="{StaticResource TextSecondaryBrush}" Margin="0,0,0,5"/>
+                <TextBox x:Name="CausaBox" Height="35" Style="{StaticResource ModernTextBoxStyle}"/>
+            </StackPanel>
+
+            <!-- Row 3: Fechas -->
+            <Grid Grid.Row="3" Margin="0,0,0,15">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="*"/>
+                    <ColumnDefinition Width="15"/>
+                    <ColumnDefinition Width="*"/>
+                </Grid.ColumnDefinitions>
+
+                <StackPanel Grid.Column="0">
+                    <TextBlock Text="Fecha Inicio" Foreground="{StaticResource TextSecondaryBrush}" Margin="0,0,0,5"/>
+                    <DatePicker x:Name="FechaInicioPicker" Height="35" VerticalContentAlignment="Center"/>
+                </StackPanel>
+
+                <StackPanel Grid.Column="2">
+                    <TextBlock Text="Fecha Fin" Foreground="{StaticResource TextSecondaryBrush}" Margin="0,0,0,5"/>
+                    <DatePicker x:Name="FechaFinPicker" Height="35" VerticalContentAlignment="Center"/>
+                </StackPanel>
+            </Grid>
+
+            <!-- Row 5: Ubicacion -->
+            <StackPanel Grid.Row="4" Margin="0,0,0,25">
+                <Grid Margin="0,0,0,10">
+                    <TextBlock Text="📍 Ubicación" FontSize="16" FontWeight="SemiBold" 
+                               Foreground="{StaticResource TextPrimaryBrush}" HorizontalAlignment="Left"/>
+                    <Button x:Name="UseLocationButton" Content="📌 Usar ubicación típica" 
+                            Click="UseLocationButton_Click"
+                            Height="30" Padding="10,0"
+                            Background="{StaticResource AccentBrush}" 
+                            Foreground="White" 
+                            BorderThickness="0" 
+                            Cursor="Hand"
+                            HorizontalAlignment="Right"/>
+                </Grid>
+
+                <!-- Latitud -->
+                <StackPanel Margin="0,0,0,15">
+                    <Grid Margin="0,0,0,5">
+                        <TextBlock Text="Latitud" Foreground="{StaticResource TextSecondaryBrush}" HorizontalAlignment="Left"/>
+                        <TextBlock x:Name="LatValueText" Text="43.0" Foreground="{StaticResource AccentBrush}" 
+                                   FontWeight="Bold" HorizontalAlignment="Right"/>
+                    </Grid>
+                    <Slider x:Name="LatSlider" 
+                            Minimum="41.5" Maximum="43.5" 
+                            Value="43.0"
+                            TickFrequency="0.1" 
+                            IsSnapToTickEnabled="True"
+                            ValueChanged="LatSlider_ValueChanged"
+                            Height="25"/>
+                    <Grid Margin="0,2,0,0">
+                        <TextBlock Text="41.5° (Sur)" FontSize="10" Foreground="{StaticResource TextSecondaryBrush}" HorizontalAlignment="Left"/>
+                        <TextBlock Text="43.5° (Norte)" FontSize="10" Foreground="{StaticResource TextSecondaryBrush}" HorizontalAlignment="Right"/>
+                    </Grid>
+                </StackPanel>
+
+                <!-- Longitud -->
+                <StackPanel>
+                    <Grid Margin="0,0,0,5">
+                        <TextBlock Text="Longitud" Foreground="{StaticResource TextSecondaryBrush}" HorizontalAlignment="Left"/>
+                        <TextBlock x:Name="LonValueText" Text="-2.5" Foreground="{StaticResource AccentBrush}" 
+                                   FontWeight="Bold" HorizontalAlignment="Right"/>
+                    </Grid>
+                    <Slider x:Name="LonSlider" 
+                            Minimum="-3.5" Maximum="-1.5" 
+                            Value="-2.5"
+                            TickFrequency="0.1" 
+                            IsSnapToTickEnabled="True"
+                            ValueChanged="LonSlider_ValueChanged"
+                            Height="25"/>
+                    <Grid Margin="0,2,0,0">
+                        <TextBlock Text="-3.5° (Oeste)" FontSize="10" Foreground="{StaticResource TextSecondaryBrush}" HorizontalAlignment="Left"/>
+                        <TextBlock Text="-1.5° (Este)" FontSize="10" Foreground="{StaticResource TextSecondaryBrush}" HorizontalAlignment="Right"/>
+                    </Grid>
+                </StackPanel>
+            </StackPanel>
+
+            <!-- Error Message -->
+            <TextBlock Grid.Row="5" Name="ErrorText" Foreground="#FF5555" 
+                       TextWrapping="Wrap" VerticalAlignment="Top" Margin="0,0,0,10" 
+                       HorizontalAlignment="Center" FontWeight="SemiBold"/>
+
+            <!-- Row 6: Buttons -->
+            <StackPanel Grid.Row="6" Orientation="Horizontal" HorizontalAlignment="Right">
+                <Button Content="Cancelar" Click="CancelButton_Click" Width="100" Height="38" 
+                        Style="{StaticResource ModernButtonStyle}" Background="#FF5252" Margin="0,0,10,0"/>
+                <Button Content="Guardar" Click="SaveButton_Click" Width="100" Height="38" 
+                        Style="{StaticResource ModernButtonStyle}" Background="{StaticResource AccentBrush}"/>
+            </StackPanel>
+        </Grid>
+    </Border>
+</Window>

@@ -5,6 +5,7 @@ using System.Data;
 using System.Linq;
 using System.Threading.Tasks;
 using System.Windows;
+using InfoCam.Models;
 
 namespace InfoCam
 {
@@ -13,5 +14,6 @@ namespace InfoCam
     /// </summary>
     public partial class App : Application
     {
+        public static Usuario CurrentUser { get; set; }
     }
 }

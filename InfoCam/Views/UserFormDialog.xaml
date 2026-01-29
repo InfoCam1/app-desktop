@@ -1,0 +1,93 @@
+<Window x:Class="InfoCam.Views.UserFormDialog"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    Title="Usuario" Height="500" Width="450"
+    Icon="pack://application:,,,/app_icon.png"
+    WindowStartupLocation="CenterOwner"
+    Background="{StaticResource BackgroundBrush}"
+    ResizeMode="NoResize">
+    <Grid Margin="20">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="*"/>
+            <RowDefinition Height="Auto"/>
+        </Grid.RowDefinitions>
+
+        <!-- Username -->
+        <TextBlock Grid.Row="0" Text="Usuario:" Foreground="{StaticResource TextPrimaryBrush}" Margin="0,0,0,5"/>
+        <TextBox Grid.Row="1" Name="UsernameBox" Margin="0,0,0,15" Padding="8" FontSize="14"/>
+
+        <!-- Password -->
+        <TextBlock Grid.Row="2" Text="Contraseña:" Foreground="{StaticResource TextPrimaryBrush}" Margin="0,0,0,5"/>
+        <PasswordBox Grid.Row="3" Name="PasswordBox" Margin="0,0,0,15" Padding="8" FontSize="14"/>
+
+        <!-- Nombre -->
+        <Grid Grid.Row="4" Margin="0,0,0,15">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="*"/>
+                <ColumnDefinition Width="10"/>
+                <ColumnDefinition Width="*"/>
+            </Grid.ColumnDefinitions>
+            
+            <StackPanel Grid.Column="0">
+                <TextBlock Text="Nombre:" Foreground="{StaticResource TextPrimaryBrush}" Margin="0,0,0,5"/>
+                <TextBox Name="NombreBox" Padding="8" FontSize="14"/>
+            </StackPanel>
+            
+            <StackPanel Grid.Column="2">
+                <TextBlock Text="Apellido:" Foreground="{StaticResource TextPrimaryBrush}" Margin="0,0,0,5"/>
+                <TextBox Name="ApellidoBox" Padding="8" FontSize="14"/>
+            </StackPanel>
+        </Grid>
+
+        <!-- Email -->
+        <TextBlock Grid.Row="5" Text="Email:" Foreground="{StaticResource TextPrimaryBrush}" Margin="0,0,0,5"/>
+        <TextBox Grid.Row="6" Name="EmailBox" Margin="0,0,0,15" Padding="8" FontSize="14"/>
+
+        <!-- Telefono and IsAdmin -->
+        <Grid Grid.Row="7" Margin="0,0,0,15">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="*"/>
+                <ColumnDefinition Width="10"/>
+                <ColumnDefinition Width="Auto"/>
+            </Grid.ColumnDefinitions>
+            
+            <StackPanel Grid.Column="0">
+                <TextBlock Text="Teléfono:" Foreground="{StaticResource TextPrimaryBrush}" Margin="0,0,0,5"/>
+                <TextBox Name="TelefonoBox" Padding="8" FontSize="14"/>
+            </StackPanel>
+            
+            <CheckBox Grid.Column="2" Name="IsAdminCheckBox" Content="Es Administrador" 
+                      Foreground="{StaticResource TextPrimaryBrush}" 
+                      VerticalAlignment="Bottom" Margin="0,0,0,8"/>
+        </Grid>
+
+        <!-- Error Message -->
+        <TextBlock Grid.Row="8" Name="ErrorText" Foreground="#FF5555" 
+                   TextWrapping="Wrap" VerticalAlignment="Top" Margin="0,5,0,0"/>
+
+        <!-- Buttons -->
+        <StackPanel Grid.Row="9" Orientation="Horizontal" HorizontalAlignment="Right" Margin="0,10,0,0">
+            <Button Name="SaveButton" Content="Guardar" Width="100" Height="35" 
+                    Margin="0,0,10,0" Click="SaveButton_Click"
+                    Background="{StaticResource AccentBrush}" 
+                    Foreground="White" 
+                    BorderThickness="0" 
+                    Cursor="Hand"/>
+            <Button Name="CancelButton" Content="Cancelar" Width="100" Height="35" 
+                    Click="CancelButton_Click"
+                    Background="{StaticResource SurfaceBrush}" 
+                    Foreground="{StaticResource TextPrimaryBrush}" 
+                    BorderThickness="1" 
+                    BorderBrush="#444444"
+                    Cursor="Hand"/>
+        </StackPanel>
+    </Grid>
+</Window>

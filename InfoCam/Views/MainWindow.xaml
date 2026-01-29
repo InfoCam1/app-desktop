@@ -1,0 +1,68 @@
+﻿<Window x:Class="InfoCam.Views.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    Title="InfoCam Control Panel" Height="600" Width="1000" WindowStartupLocation="CenterScreen" 
+    Icon="pack://application:,,,/app_icon.png"
+    Background="#EEEEEE">
+
+    <Grid Background="{StaticResource BackgroundBrush}">
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="220"/>
+            <!-- Sidebar -->
+            <ColumnDefinition Width="*"/>
+            <!-- Main Content -->
+        </Grid.ColumnDefinitions>
+
+        <!-- Sidebar -->
+        <Border Grid.Column="0" Background="{StaticResource PrimaryBrush}">
+            <DockPanel>
+                <!-- Top Logo -->
+                <StackPanel DockPanel.Dock="Top" Margin="0,30,0,50" HorizontalAlignment="Center">
+                    <Border Width="80" Height="80" CornerRadius="10" HorizontalAlignment="Center" ClipToBounds="True">
+                        <Image Source="/app_icon.png" Stretch="Uniform"/>
+                    </Border>
+                    <TextBlock Text="InfoCam" Foreground="White" FontWeight="Bold" FontSize="18" HorizontalAlignment="Center" Margin="0,15,0,0"/>
+                </StackPanel>
+
+                <!-- Buttons -->
+                <StackPanel DockPanel.Dock="Top">
+                    <Button Content="CAMARAS" Click="ShowCameras_Click" Style="{StaticResource SidebarButtonStyle}" Foreground="#4CAF50"/>
+                    <Button Content="INCIDENCIAS" Click="ShowIncidencias_Click" Style="{StaticResource SidebarButtonStyle}"/>
+                    <Button Content="MAPA" Click="ShowMap_Click" Style="{StaticResource SidebarButtonStyle}"/>
+                    <Button Content="USUARIOS" Click="ShowUsuarios_Click" Style="{StaticResource SidebarButtonStyle}"/>
+                </StackPanel>
+
+                <!-- Logout at Bottom -->
+                <StackPanel DockPanel.Dock="Bottom" Margin="0,0,0,20">
+                    <Button Content="SALIR" Style="{StaticResource SidebarButtonStyle}" Click="LogoutButton_Click"/>
+                </StackPanel>
+            </DockPanel>
+        </Border>
+
+        <!-- Main Content -->
+        <Grid Grid.Column="1">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="50"/>
+                <RowDefinition Height="*"/>
+            </Grid.RowDefinitions>
+            
+            <!-- Top Bar -->
+            <Border Grid.Row="0" Background="#333333" Padding="10">
+                <Grid>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="*"/>
+                        <ColumnDefinition Width="Auto"/>
+                    </Grid.ColumnDefinitions>
+
+                    <StackPanel Grid.Column="0" Orientation="Horizontal" VerticalAlignment="Center">
+                        <TextBlock Text="Buscar:" Foreground="{StaticResource TextSecondaryBrush}" VerticalAlignment="Center" Margin="0,0,10,0"/>
+                        <TextBox x:Name="GlobalSearchBox" Width="200" Padding="5" Background="#555555" Foreground="White" BorderThickness="0" TextChanged="GlobalSearchBox_TextChanged"/>
+                    </StackPanel>
+
+                    <Button Grid.Column="1" Content="Generar Informe PDF" Click="GlobalGeneratePdfButton_Click" Style="{StaticResource ModernButtonStyle}" Background="#2196F3" Padding="15,5"/>
+                </Grid>
+            </Border>
+            <ContentControl Grid.Row="1" x:Name="MainContent" />
+        </Grid>
+    </Grid>
+</Window>

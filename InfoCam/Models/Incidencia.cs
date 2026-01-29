@@ -77,7 +77,11 @@ namespace InfoCam.Models
             { 
                 if (string.IsNullOrEmpty(LatitudString)) return 0;
                 string processed = LatitudString.Replace(",", ".");
-                if (double.TryParse(processed, System.Globalization.NumberStyles.Any, System.Globalization.CultureInfo.InvariantCulture, out double v)) return v;
+                if (double.TryParse(processed, System.Globalization.NumberStyles.Any, System.Globalization.CultureInfo.InvariantCulture, out double v))
+                {
+                     if (v < -90 || v > 90) return 0;
+                     return v;
+                }
                 return 0;
             }
             set { LatitudString = value.ToString(System.Globalization.CultureInfo.InvariantCulture); }
@@ -93,7 +97,11 @@ namespace InfoCam.Models
             {
                 if (string.IsNullOrEmpty(LongitudString)) return 0;
                 string processed = LongitudString.Replace(",", ".");
-                if (double.TryParse(processed, System.Globalization.NumberStyles.Any, System.Globalization.CultureInfo.InvariantCulture, out double v)) return v;
+                if (double.TryParse(processed, System.Globalization.NumberStyles.Any, System.Globalization.CultureInfo.InvariantCulture, out double v))
+                {
+                    if (v < -180 || v > 180) return 0;
+                    return v;
+                }
                 return 0;
             }
             set { LongitudString = value.ToString(System.Globalization.CultureInfo.InvariantCulture); }

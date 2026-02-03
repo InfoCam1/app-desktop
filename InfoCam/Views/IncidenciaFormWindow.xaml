@@ -71,58 +71,50 @@
 
             <!-- Row 5: Ubicacion -->
             <StackPanel Grid.Row="4" Margin="0,0,0,25">
-                <Grid Margin="0,0,0,10">
-                    <TextBlock Text="📍 Ubicación" FontSize="16" FontWeight="SemiBold" 
-                               Foreground="{StaticResource TextPrimaryBrush}" HorizontalAlignment="Left"/>
-                    <Button x:Name="UseLocationButton" Content="📌 Usar ubicación típica" 
-                            Click="UseLocationButton_Click"
-                            Height="30" Padding="10,0"
-                            Background="{StaticResource AccentBrush}" 
-                            Foreground="White" 
-                            BorderThickness="0" 
-                            Cursor="Hand"
-                            HorizontalAlignment="Right"/>
+                <TextBlock Text="📍 Ubicación" FontSize="16" FontWeight="SemiBold" 
+                           Foreground="{StaticResource TextPrimaryBrush}" Margin="0,0,0,15"/>
+
+                <Grid>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="*"/>
+                        <ColumnDefinition Width="15"/>
+                        <ColumnDefinition Width="*"/>
+                    </Grid.ColumnDefinitions>
+
+                    <!-- Latitud -->
+                    <StackPanel Grid.Column="0">
+                        <TextBlock Text="Latitud" Foreground="{StaticResource TextSecondaryBrush}" Margin="0,0,0,5"/>
+                        <Border Background="{StaticResource SurfaceBrush}" 
+                                BorderBrush="#444444" 
+                                BorderThickness="1" 
+                                CornerRadius="3" 
+                                Height="35" 
+                                Padding="10,0">
+                            <TextBlock x:Name="LatValueText" 
+                                       Text="43.0°" 
+                                       Foreground="{StaticResource AccentBrush}" 
+                                       FontWeight="Bold" 
+                                       VerticalAlignment="Center"/>
+                        </Border>
+                    </StackPanel>
+
+                    <!-- Longitud -->
+                    <StackPanel Grid.Column="2">
+                        <TextBlock Text="Longitud" Foreground="{StaticResource TextSecondaryBrush}" Margin="0,0,0,5"/>
+                        <Border Background="{StaticResource SurfaceBrush}" 
+                                BorderBrush="#444444" 
+                                BorderThickness="1" 
+                                CornerRadius="3" 
+                                Height="35" 
+                                Padding="10,0">
+                            <TextBlock x:Name="LonValueText" 
+                                       Text="-2.5°" 
+                                       Foreground="{StaticResource AccentBrush}" 
+                                       FontWeight="Bold" 
+                                       VerticalAlignment="Center"/>
+                        </Border>
+                    </StackPanel>
                 </Grid>
-
-                <!-- Latitud -->
-                <StackPanel Margin="0,0,0,15">
-                    <Grid Margin="0,0,0,5">
-                        <TextBlock Text="Latitud" Foreground="{StaticResource TextSecondaryBrush}" HorizontalAlignment="Left"/>
-                        <TextBlock x:Name="LatValueText" Text="43.0" Foreground="{StaticResource AccentBrush}" 
-                                   FontWeight="Bold" HorizontalAlignment="Right"/>
-                    </Grid>
-                    <Slider x:Name="LatSlider" 
-                            Minimum="41.5" Maximum="43.5" 
-                            Value="43.0"
-                            TickFrequency="0.1" 
-                            IsSnapToTickEnabled="True"
-                            ValueChanged="LatSlider_ValueChanged"
-                            Height="25"/>
-                    <Grid Margin="0,2,0,0">
-                        <TextBlock Text="41.5° (Sur)" FontSize="10" Foreground="{StaticResource TextSecondaryBrush}" HorizontalAlignment="Left"/>
-                        <TextBlock Text="43.5° (Norte)" FontSize="10" Foreground="{StaticResource TextSecondaryBrush}" HorizontalAlignment="Right"/>
-                    </Grid>
-                </StackPanel>
-
-                <!-- Longitud -->
-                <StackPanel>
-                    <Grid Margin="0,0,0,5">
-                        <TextBlock Text="Longitud" Foreground="{StaticResource TextSecondaryBrush}" HorizontalAlignment="Left"/>
-                        <TextBlock x:Name="LonValueText" Text="-2.5" Foreground="{StaticResource AccentBrush}" 
-                                   FontWeight="Bold" HorizontalAlignment="Right"/>
-                    </Grid>
-                    <Slider x:Name="LonSlider" 
-                            Minimum="-3.5" Maximum="-1.5" 
-                            Value="-2.5"
-                            TickFrequency="0.1" 
-                            IsSnapToTickEnabled="True"
-                            ValueChanged="LonSlider_ValueChanged"
-                            Height="25"/>
-                    <Grid Margin="0,2,0,0">
-                        <TextBlock Text="-3.5° (Oeste)" FontSize="10" Foreground="{StaticResource TextSecondaryBrush}" HorizontalAlignment="Left"/>
-                        <TextBlock Text="-1.5° (Este)" FontSize="10" Foreground="{StaticResource TextSecondaryBrush}" HorizontalAlignment="Right"/>
-                    </Grid>
-                </StackPanel>
             </StackPanel>
 
             <!-- Error Message -->

@@ -24,6 +24,21 @@ namespace InfoCam.Views
             Loaded += async (_, __) => await FillForm();
         }
 
+        public IncidenciaFormWindow(double latitud, double longitud)
+        {
+            InitializeComponent();
+
+            _apiService = new ApiService();
+            Incidencia = new Incidencia
+            {
+                Latitud = latitud,
+                Longitud = longitud
+            };
+
+            // Ejecuta FillForm cuando la ventana esté cargada
+            Loaded += async (_, __) => await FillForm();
+        }
+
         private async Task FillForm()
         {
             try
@@ -51,16 +66,9 @@ namespace InfoCam.Views
                 NombreBox.Text = Incidencia.Nombre;
                 CausaBox.Text = Incidencia.Causa;
                 
-                // Inicializar sliders con valores de la incidencia
-                if (Incidencia.Latitud >= LatSlider.Minimum && Incidencia.Latitud <= LatSlider.Maximum)
-                {
-                    LatSlider.Value = Incidencia.Latitud;
-                }
-                
-                if (Incidencia.Longitud >= LonSlider.Minimum && Incidencia.Longitud <= LonSlider.Maximum)
-                {
-                    LonSlider.Value = Incidencia.Longitud;
-                }
+                // Mostrar coordenadas en TextBlocks
+                LatValueText.Text = Incidencia.Latitud.ToString("F6") + "°";
+                LonValueText.Text = Incidencia.Longitud.ToString("F6") + "°";
                 
                 FechaInicioPicker.SelectedDate = Incidencia.Fecha_inicio;
                 FechaFinPicker.SelectedDate = Incidencia.Fecha_fin;
@@ -70,43 +78,6 @@ namespace InfoCam.Views
                 MessageBox.Show($"Error cargando tipos: {ex.Message}", "Error",
                     MessageBoxButton.OK, MessageBoxImage.Error);
             }
-        }
-
-        private void LatSlider_ValueChanged(object sender, RoutedPropertyChangedEventArgs<double> e)
-        {
-            if (LatValueText != null)
-            {
-                LatValueText.Text = LatSlider.Value.ToString("F2") + "°";
-            }
-        }
-
-        private void LonSlider_ValueChanged(object sender, RoutedPropertyChangedEventArgs<double> e)
-        {
-            if (LonValueText != null)
-            {
-                LonValueText.Text = LonSlider.Value.ToString("F2") + "°";
-            }
-        }
-
-        private void UseLocationButton_Click(object sender, RoutedEventArgs e)
-        {
-            // Coordenadas de ubicaciones típicas del País Vasco
-            var locations = new[]
-            {
-                new { Name = "Bilbao", Lat = 43.263, Lon = -2.935 },
-                new { Name = "Vitoria-Gasteiz", Lat = 42.847, Lon = -2.672 },
-                new { Name = "San Sebastián", Lat = 43.318, Lon = -1.981 }
-            };
-
-            // Seleccionar una ubicación aleatoria
-            var random = new Random();
-            var location = locations[random.Next(locations.Length)];
-
-            LatSlider.Value = location.Lat;
-            LonSlider.Value = location.Lon;
-
-            MessageBox.Show($"Ubicación establecida: {location.Name}", "Ubicación", 
-                MessageBoxButton.OK, MessageBoxImage.Information);
         }
 
         private async void SaveButton_Click(object sender, RoutedEventArgs e)
@@ -153,9 +124,8 @@ namespace InfoCam.Views
                 Incidencia.Fecha_inicio = FechaInicioPicker.SelectedDate;
                 Incidencia.Fecha_fin = FechaFinPicker.SelectedDate;
 
-                // Usar valores de los sliders para coordenadas
-                Incidencia.Latitud = LatSlider.Value;
-                Incidencia.Longitud = LonSlider.Value;
+                // Las coordenadas ya están establecidas en el objeto Incidencia
+                // (desde el constructor o desde la incidencia existente)
 
                 // Vincular con el usuario logueado
                 if (App.CurrentUser != null)

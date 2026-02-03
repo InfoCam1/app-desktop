@@ -64,10 +64,6 @@ namespace InfoCam.Models
         }
 
         [DataMember(Name = "latitud")]
-         // The user said "latitud":"43.1" (string in JSON?) in the example: "latitud":"43.1". 
-         // Wait, the user provided example: "latitud":"43.1" -> Quoted string!
-         // But in C# it is double. DataContractJsonSerializer might fail if it's a string in JSON but double in C#.
-         // Let's use string for deserialization and parse it, to be safe.
         public string LatitudString { get; set; }
 
         [IgnoreDataMember]

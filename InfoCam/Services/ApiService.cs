@@ -1,16 +1,18 @@
+using InfoCam.Models;
 using System;
 using System.Collections.Generic;
 using System.Net.Http;
 using System.Runtime.Serialization.Json;
+using System.Security.Cryptography;
 using System.Text;
 using System.Threading.Tasks;
-using InfoCam.Models;
 
 namespace InfoCam.Services
 {
     public class ApiService
     {
         private const string BaseUrl = "http://10.10.16.85:8080/api";
+        // private const string BaseUrl = "http://db.toadstudios.net:8080/api";
         private readonly HttpClient _client;
 
         public ApiService()
@@ -102,7 +104,22 @@ namespace InfoCam.Services
 
         public async Task<Usuario> LoginAsync(string username, string password)
         {
-            string json = $"{{\"username\":\"{username}\",\"password\":\"{password}\"}}";
+            // 1. Hashear la contraseña con SHA-256
+            string hashedPassword = "";
+            using (SHA256 sha256Hash = SHA256.Create())
+            {
+                byte[] bytes = sha256Hash.ComputeHash(Encoding.UTF8.GetBytes(password));
+                StringBuilder builder = new StringBuilder();
+                foreach (byte b in bytes)
+                {
+                    builder.Append(b.ToString("x2"));
+                }
+                hashedPassword = builder.ToString();
+            }
+
+            // 2. Construir el JSON con la contraseña ya hasheada
+            // Usamos string interpolation con cuidado o un objeto anónimo si usaras System.Text.Json
+            string json = $"{{\"username\":\"{username}\",\"password\":\"{hashedPassword}\"}}";
             var content = new StringContent(json, Encoding.UTF8, "application/json");
 
             try
@@ -110,15 +127,14 @@ namespace InfoCam.Services
                 HttpResponseMessage response = await _client.PostAsync($"{BaseUrl}/auth/login", content);
 
                 if (!response.IsSuccessStatusCode)
-                    return null; // request failed
+                    return null;
 
                 string responseBody = await response.Content.ReadAsStringAsync();
 
-                // Check if JSON is empty
                 if (string.IsNullOrWhiteSpace(responseBody) || responseBody == "{}")
                     return null;
 
-                // Deserialize the response to Usuario object
+                // 3. Deserializar la respuesta
                 using (var stream = new System.IO.MemoryStream(Encoding.UTF8.GetBytes(responseBody)))
                 {
                     DataContractJsonSerializer serializer = new DataContractJsonSerializer(typeof(Usuario));
@@ -134,6 +150,21 @@ namespace InfoCam.Services
 
         public async Task<bool> CreateUsuarioAsync(Usuario usuario)
         {
+            // 1. Calcular el Hash SHA-256 de la contraseña
+            if (!string.IsNullOrEmpty(usuario.Password))
+            {
+                using (SHA256 sha256Hash = SHA256.Create())
+                {
+                    // Convertimos la contraseña a bytes, calculamos el hash y lo pasamos a hexadecimal
+                    byte[] bytes = sha256Hash.ComputeHash(Encoding.UTF8.GetBytes(usuario.Password));
+                    StringBuilder builder = new StringBuilder();
+                    foreach (byte b in bytes)
+                    {
+                        builder.Append(b.ToString("x2"));
+                    }
+                    usuario.Password = builder.ToString();
+                }
+            }
             var serializer = new DataContractJsonSerializer(typeof(Usuario));
             using (var stream = new System.IO.MemoryStream())
             {

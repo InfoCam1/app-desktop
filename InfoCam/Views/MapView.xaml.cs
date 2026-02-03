@@ -28,7 +28,39 @@ namespace InfoCam.Views
         private async void InitializeAsync()
         {
             await MapBrowser.EnsureCoreWebView2Async();
+            MapBrowser.CoreWebView2.WebMessageReceived += CoreWebView2_WebMessageReceived;
             await LoadMapDataAsync();
+        }
+
+        private void CoreWebView2_WebMessageReceived(object sender, CoreWebView2WebMessageReceivedEventArgs e)
+        {
+            try
+            {
+                string message = e.TryGetWebMessageAsString();
+                if (message.StartsWith("DBLCLICK:"))
+                {
+                    string[] parts = message.Substring(9).Split(',');
+                    if (parts.Length == 2 && 
+                        double.TryParse(parts[0], System.Globalization.NumberStyles.Float, System.Globalization.CultureInfo.InvariantCulture, out double lat) &&
+                        double.TryParse(parts[1], System.Globalization.NumberStyles.Float, System.Globalization.CultureInfo.InvariantCulture, out double lon))
+                    {
+                        // Open incident form with pre-filled coordinates
+                        Application.Current.Dispatcher.Invoke(() =>
+                        {
+                            var incidenciaForm = new IncidenciaFormWindow(lat, lon);
+                            if (incidenciaForm.ShowDialog() == true)
+                            {
+                                // Refresh map after adding incident
+                                LoadMapDataAsync();
+                            }
+                        });
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show($"Error processing map click: {ex.Message}", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
+            }
         }
 
         private async Task LoadMapDataAsync()
@@ -202,6 +234,13 @@ namespace InfoCam.Views
         }}).addTo(map);
 
         {scriptBuilder}
+
+        // Double-click event to add incident
+        map.on('dblclick', function(e) {{
+            var lat = e.latlng.lat;
+            var lng = e.latlng.lng;
+            window.chrome.webview.postMessage('DBLCLICK:' + lat + ',' + lng);
+        }});
 
         // Modal Logic
         function openModal(src) {{

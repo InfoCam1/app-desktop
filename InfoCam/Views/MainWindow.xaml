@@ -26,10 +26,10 @@
 
                 <!-- Buttons -->
                 <StackPanel DockPanel.Dock="Top">
-                    <Button Content="CAMARAS" Click="ShowCameras_Click" Style="{StaticResource SidebarButtonStyle}" Foreground="#4CAF50"/>
-                    <Button Content="INCIDENCIAS" Click="ShowIncidencias_Click" Style="{StaticResource SidebarButtonStyle}"/>
-                    <Button Content="MAPA" Click="ShowMap_Click" Style="{StaticResource SidebarButtonStyle}"/>
-                    <Button Content="USUARIOS" Click="ShowUsuarios_Click" Style="{StaticResource SidebarButtonStyle}"/>
+                    <Button x:Name="BtnCamaras" Content="CAMARAS" Click="ShowCameras_Click" Style="{StaticResource SidebarButtonStyle}"/>
+                    <Button x:Name="BtnIncidencias" Content="INCIDENCIAS" Click="ShowIncidencias_Click" Style="{StaticResource SidebarButtonStyle}"/>
+                    <Button x:Name="BtnMapa" Content="MAPA" Click="ShowMap_Click" Style="{StaticResource SidebarButtonStyle}"/>
+                    <Button x:Name="BtnUsuarios" Content="USUARIOS" Click="ShowUsuarios_Click" Style="{StaticResource SidebarButtonStyle}"/>
                 </StackPanel>
 
                 <!-- Logout at Bottom -->

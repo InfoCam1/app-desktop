@@ -14,26 +14,43 @@ namespace InfoCam.Views
             InitializeComponent();
             // Default view
             MainContent.Content = new CamerasView();
+            SetActiveButton(BtnCamaras);
+        }
+
+        private void SetActiveButton(Button activeButton)
+        {
+            // Reset all buttons
+            BtnCamaras.Tag = null;
+            BtnIncidencias.Tag = null;
+            BtnMapa.Tag = null;
+            BtnUsuarios.Tag = null;
+
+            // Set the active button
+            activeButton.Tag = "Active";
         }
 
         private void ShowCameras_Click(object sender, RoutedEventArgs e)
         {
             MainContent.Content = new CamerasView();
+            SetActiveButton(BtnCamaras);
         }
 
         private void ShowIncidencias_Click(object sender, RoutedEventArgs e)
         {
             MainContent.Content = new IncidenciasView();
+            SetActiveButton(BtnIncidencias);
         }
 
         private void ShowMap_Click(object sender, RoutedEventArgs e)
         {
             MainContent.Content = new MapView();
+            SetActiveButton(BtnMapa);
         }
 
         private void ShowUsuarios_Click(object sender, RoutedEventArgs e)
         {
             MainContent.Content = new UsuariosView();
+            SetActiveButton(BtnUsuarios);
         }
 
         private void GlobalSearchBox_TextChanged(object sender, TextChangedEventArgs e)

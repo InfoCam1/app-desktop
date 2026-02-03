@@ -82,7 +82,7 @@ namespace InfoCam.Views
             catch (Exception ex)
             {
                 MessageBox.Show($"Error loading map data: {ex.Message}", "Error - Map", MessageBoxButton.OK, MessageBoxImage.Error);
-                // Fallback to empty map
+                // Volver a un mapa vacío en caso de error
                 MapBrowser.NavigateToString(GenerateMapHtml(new List<Incidencia>(), new List<Camera>()));
             }
         }
@@ -91,7 +91,7 @@ namespace InfoCam.Views
         {
             var scriptBuilder = new StringBuilder();
 
-            // Green Icon definition
+            // Definición del icono verde
             scriptBuilder.AppendLine(@"
                 var greenIcon = new L.Icon({
                   iconUrl: 'https://raw.githubusercontent.com/pointhi/leaflet-color-markers/master/img/marker-icon-2x-green.png',
@@ -103,7 +103,7 @@ namespace InfoCam.Views
                 });
             ");
 
-            // Red Icon definition
+            // Definición del icono rojo
             scriptBuilder.AppendLine(@"
                 var redIcon = new L.Icon({
                   iconUrl: 'https://raw.githubusercontent.com/pointhi/leaflet-color-markers/master/img/marker-icon-2x-red.png',
@@ -115,7 +115,7 @@ namespace InfoCam.Views
                 });
             ");
 
-            // Incidents
+            // Incidencias
             foreach (var inc in incidencias)
             {
                 if (inc.Latitud != 0 && inc.Longitud != 0)
@@ -127,18 +127,18 @@ namespace InfoCam.Views
                     
                     if (string.IsNullOrEmpty(inc.External_id))
                     {
-                         // Null/Empty ExternalId (Mobile App) -> Red
+                         // ExternalId nulo/vacío (App móvil) -> Rojo
                          scriptBuilder.AppendLine($"L.marker([{inc.Latitud.ToString(System.Globalization.CultureInfo.InvariantCulture)}, {inc.Longitud.ToString(System.Globalization.CultureInfo.InvariantCulture)}], {{icon: redIcon}}).addTo(map).bindPopup('{popupContent} (Mobile)');");
                     }
                     else
                     {
-                        // Has ExternalId (External Source) -> Default Blue
+                        // Tiene ExternalId (Fuente externa) -> Azul por defecto
                         scriptBuilder.AppendLine($"L.marker([{inc.Latitud.ToString(System.Globalization.CultureInfo.InvariantCulture)}, {inc.Longitud.ToString(System.Globalization.CultureInfo.InvariantCulture)}]).addTo(map).bindPopup('{popupContent}');");
                     }
                 }
             }
 
-            // Cameras (Green)
+            // Cámaras (Verde)
             foreach (var cam in cameras)
             {
                 if (cam.Latitud != 0 && cam.Longitud != 0)
@@ -152,11 +152,11 @@ namespace InfoCam.Views
                 }
             }
 
-            // Default center
+            // Centro por defecto
             double centerLat = 43.0;
             double centerLon = -2.5;
 
-            // Try to center on the first item found
+            // Intentar centrar en el primer elemento encontrado
             if (incidencias.Any() && incidencias.First().Latitud != 0)
             {
                 centerLat = incidencias.First().Latitud;
@@ -235,14 +235,14 @@ namespace InfoCam.Views
 
         {scriptBuilder}
 
-        // Double-click event to add incident
+        // Evento de doble clic para añadir incidencia
         map.on('dblclick', function(e) {{
             var lat = e.latlng.lat;
             var lng = e.latlng.lng;
             window.chrome.webview.postMessage('DBLCLICK:' + lat + ',' + lng);
         }});
 
-        // Modal Logic
+        // Lógica del modal
         function openModal(src) {{
             var modal = document.getElementById('imgModal');
             var modalImg = document.getElementById('imgModalContent');
@@ -278,7 +278,7 @@ namespace InfoCam.Views
         {
             if (_allIncidencias == null || _allCameras == null) return;
 
-            // Filter Cameras
+            // Filtrar Cámaras
             List<Camera> filteredCameras = new List<Camera>();
             if (FilterCameras.IsChecked == true)
             {
@@ -287,7 +287,7 @@ namespace InfoCam.Views
                     : _allCameras.Where(c => c.Nombre != null && c.Nombre.IndexOf(_currentQuery, StringComparison.OrdinalIgnoreCase) >= 0).ToList();
             }
 
-            // Filter Incidencias
+            // Filtrar Incidencias
             List<Incidencia> filteredIncidencias = new List<Incidencia>();
             foreach (var inc in _allIncidencias)
             {

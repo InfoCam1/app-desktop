@@ -24,7 +24,7 @@ namespace InfoCam.Services
             PdfPage page = document.AddPage();
             XGraphics gfx = XGraphics.FromPdfPage(page);
 
-            // 1. Title and Header Info
+            // 1. Título e información de cabecera
             gfx.DrawString("Informe de Incidencias InfoCam", _fontTitle, XBrushes.DarkBlue,
                 new XRect(0, 20, page.Width, 50), XStringFormats.TopCenter);
 
@@ -34,22 +34,22 @@ namespace InfoCam.Services
             gfx.DrawString($"Total Incidencias: {incidencias.Count}", _fontBody, XBrushes.Black, 40, yPoint);
             yPoint += 40;
 
-            // 2. Data Grouping
+            // 2. Agrupación de datos
             var typeStats = incidencias.GroupBy(i => i.TipoIncidencia ?? "Otros")
                                        .Select(g => new { Label = g.Key, Count = g.Count() })
                                        .OrderByDescending(x => x.Count)
                                        .ToList();
 
-            // 3. NEW: Pie Chart for Incident Types
-            // This replaces or complements the Bar Chart
+            // 3. NUEVO: Gráfico circular para tipos de incidencias
+            // Esto reemplaza o complementa al gráfico de barras
             DrawIncidenciasPieChart(gfx, "Distribución Porcentual por Tipo", typeStats, ref yPoint);
 
             yPoint += 40;
 
-            // 4. Detailed Charts and Tables
+            // 4. Gráficos detallados y tablas
             DrawBarChart(gfx, "Principales Causas", typeStats.Select(s => s.Label).ToList(), typeStats.Select(s => (double)s.Count).ToList(), ref yPoint, XColors.OrangeRed);
 
-            // ... (rest of your table logic follows)
+            // ... (el resto de la lógica de tablas sigue aquí)
             document.Save(filePath);
             Process.Start(new ProcessStartInfo(filePath) { UseShellExecute = true });
         }
@@ -63,7 +63,7 @@ namespace InfoCam.Services
             foreach (var s in stats) total += s.Count;
             if (total == 0) return;
 
-            // Professional color palette for multiple categories
+            // Paleta de colores profesional para múltiples categorías
             XBrush[] colors = { XBrushes.RoyalBlue, XBrushes.OrangeRed, XBrushes.ForestGreen,
                         XBrushes.Goldenrod, XBrushes.Purple, XBrushes.Chocolate };
 
@@ -78,10 +78,10 @@ namespace InfoCam.Services
                 double sweepAngle = (item.Count / total) * 360;
                 XBrush currentBrush = colors[colorIndex % colors.Length];
 
-                // Draw the slice
+                // Dibujar la porción del gráfico
                 gfx.DrawPie(currentBrush, pieX, yPoint, pieSize, pieSize, startAngle, sweepAngle);
 
-                // Draw Legend (up to 6 main categories)
+                // Dibujar leyenda (hasta 6 categorías principales)
                 if (colorIndex < 6)
                 {
                     gfx.DrawRectangle(currentBrush, 40, legendY, 10, 10);
@@ -94,7 +94,7 @@ namespace InfoCam.Services
                 colorIndex++;
             }
 
-            yPoint += pieSize + 20; // Update yPoint to continue below the chart
+            yPoint += pieSize + 20; // Actualizar yPoint para continuar debajo del gráfico
         }
 
         public void GenerateCamerasReport(List<Camera> cameras, string filePath)
@@ -114,14 +114,14 @@ namespace InfoCam.Services
             gfx.DrawString($"Total Cámaras: {cameras.Count}", _fontBody, XBrushes.Black, 40, yPoint);
             yPoint += 40;
 
-            // 1. Pie Chart for Status
+            // 1. Gráfico circular de estado
             int active = cameras.Count(c => c.Activa);
             int inactive = cameras.Count - active;
             DrawPieChart(gfx, "Estado de Cámaras", active, inactive, ref yPoint);
 
             yPoint += 40;
 
-            // 2. Summary Table
+            // 2. Tabla resumen
             if (yPoint > page.Height - 150) { page = document.AddPage(); gfx = XGraphics.FromPdfPage(page); yPoint = 40; }
             
             gfx.DrawString("Resumen Estadístico:", _fontHeader, XBrushes.Black, 40, yPoint);
@@ -177,11 +177,11 @@ namespace InfoCam.Services
 
             double activeAngle = (active / total) * 360;
             
-            // Draw Pie
+            // Dibujar gráfico circular
             gfx.DrawPie(XBrushes.Green, 300, yPoint, 100, 100, 0, activeAngle);
             gfx.DrawPie(XBrushes.Red, 300, yPoint, 100, 100, activeAngle, 360 - activeAngle);
 
-            // Legend
+            // Leyenda
             gfx.DrawRectangle(XBrushes.Green, 40, yPoint + 20, 10, 10);
             gfx.DrawString($"Activas: {active} ({active/total:P0})", _fontBody, XBrushes.Black, 60, yPoint + 29);
             

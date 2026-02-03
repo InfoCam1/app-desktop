@@ -31,16 +31,16 @@ namespace InfoCam.Models
         public string Fecha_inicio_String { get; set; }
 
         [IgnoreDataMember]
-        public DateTime? Fecha_inicio 
-        { 
-            get 
+        public DateTime? Fecha_inicio
+        {
+            get
             {
                 if (DateTime.TryParse(Fecha_inicio_String, out DateTime dt)) return dt;
                 return null;
             }
-            set 
-            { 
-                if (value.HasValue) Fecha_inicio_String = value.Value.ToString("o"); 
+            set
+            {
+                if (value.HasValue) Fecha_inicio_String = value.Value.ToString("o");
                 else Fecha_inicio_String = null;
             }
         }
@@ -69,14 +69,14 @@ namespace InfoCam.Models
         [IgnoreDataMember]
         public double Latitud
         {
-            get 
-            { 
+            get
+            {
                 if (string.IsNullOrEmpty(LatitudString)) return 0;
                 string processed = LatitudString.Replace(",", ".");
                 if (double.TryParse(processed, System.Globalization.NumberStyles.Any, System.Globalization.CultureInfo.InvariantCulture, out double v))
                 {
-                     if (v < -90 || v > 90) return 0;
-                     return v;
+                    if (v < -90 || v > 90) return 0;
+                    return v;
                 }
                 return 0;
             }

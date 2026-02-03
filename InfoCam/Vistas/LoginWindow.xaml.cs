@@ -28,11 +28,11 @@ namespace InfoCam.Views
 
             if (string.IsNullOrWhiteSpace(username) || string.IsNullOrWhiteSpace(password))
             {
-                StatusText.Text = "Please enter both username and password.";
+                StatusText.Text = "Por favor introduce nombre de usuario y contraseña.";
                 return;
             }
 
-            StatusText.Text = "Logging in...";
+            StatusText.Text = "Iniciando sesión...";
             LoginButton.IsEnabled = false;
 
             try
@@ -40,10 +40,10 @@ namespace InfoCam.Views
                 Usuario user = await _apiService.LoginAsync(username, password);
                 if (user != null)
                 {
-                    // Check if user is admin
+                    // Comprobar si el usuario es administrador
                     if (user.IsAdmin)
                     {
-                        // Store logged-in user globally
+                        // Guardar el usuario en la aplicación para uso posterior
                         App.CurrentUser = user;
                         
                         MainWindow mainWindow = new MainWindow();

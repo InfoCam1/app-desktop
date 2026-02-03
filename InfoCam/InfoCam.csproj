@@ -76,26 +76,26 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
-    <Compile Include="Views\CamerasView.xaml.cs">
+    <Compile Include="Vistas\CamerasView.xaml.cs">
       <DependentUpon>CamerasView.xaml</DependentUpon>
     </Compile>
-    <Page Include="Views\MainWindow.xaml">
+    <Page Include="Vistas\MainWindow.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
-    <Page Include="Views\LoginWindow.xaml">
+    <Page Include="Vistas\LoginWindow.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="Views\IncidenciasView.xaml">
+    <Page Include="Vistas\IncidenciasView.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="Views\IncidenciaFormWindow.xaml">
+    <Page Include="Vistas\IncidenciaFormWindow.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="Views\MapView.xaml">
+    <Page Include="Vistas\MapView.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -103,58 +103,58 @@
       <DependentUpon>App.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
-    <Compile Include="Models\Camera.cs" />
-    <Compile Include="Views\MainWindow.xaml.cs">
+    <Compile Include="Modelos\Camera.cs" />
+    <Compile Include="Vistas\MainWindow.xaml.cs">
       <DependentUpon>MainWindow.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
-    <Compile Include="Views\LoginWindow.xaml.cs">
+    <Compile Include="Vistas\LoginWindow.xaml.cs">
       <DependentUpon>LoginWindow.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Views\IncidenciasView.xaml.cs">
+    <Compile Include="Vistas\IncidenciasView.xaml.cs">
       <DependentUpon>IncidenciasView.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Views\MapView.xaml.cs">
+    <Compile Include="Vistas\MapView.xaml.cs">
       <DependentUpon>MapView.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Views\IncidenciaFormWindow.xaml.cs">
+    <Compile Include="Vistas\IncidenciaFormWindow.xaml.cs">
       <DependentUpon>IncidenciaFormWindow.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Views\IActionableView.cs" />
-    <Compile Include="Services\ApiService.cs" />
-    <Compile Include="Services\ReportService.cs" />
-    <Compile Include="Models\Usuario.cs" />
-    <Compile Include="Views\UsuariosView.xaml.cs">
+    <Compile Include="Vistas\IActionableView.cs" />
+    <Compile Include="Servicios\ApiService.cs" />
+    <Compile Include="Servicios\ReportService.cs" />
+    <Compile Include="Modelos\Usuario.cs" />
+    <Compile Include="Vistas\UsuariosView.xaml.cs">
       <DependentUpon>UsuariosView.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Views\UserFormDialog.xaml.cs">
+    <Compile Include="Vistas\UserFormDialog.xaml.cs">
       <DependentUpon>UserFormDialog.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Views\CameraGalleryWindow.xaml.cs">
+    <Compile Include="Vistas\CameraGalleryWindow.xaml.cs">
       <DependentUpon>CameraGalleryWindow.xaml</DependentUpon>
     </Compile>
-    <Page Include="Views\CamerasView.xaml">
+    <Page Include="Vistas\CamerasView.xaml">
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="Views\UsuariosView.xaml">
-      <Generator>MSBuild:Compile</Generator>
-      <SubType>Designer</SubType>
-    </Page>
-    <Page Include="Views\UserFormDialog.xaml">
+    <Page Include="Vistas\UsuariosView.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
-    <Page Include="Views\CameraGalleryWindow.xaml">
+    <Page Include="Vistas\UserFormDialog.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
-    <Page Include="Resources\Styles.xaml">
+    <Page Include="Vistas\CameraGalleryWindow.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Recursos\Styles.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Models\Incidencia.cs" />
+    <Compile Include="Modelos\Incidencia.cs" />
     <Compile Include="Properties\AssemblyInfo.cs">
       <SubType>Code</SubType>
     </Compile>

@@ -12,20 +12,20 @@ namespace InfoCam.Views
         public MainWindow()
         {
             InitializeComponent();
-            // Default view
+            // Vista por defecto
             MainContent.Content = new CamerasView();
             SetActiveButton(BtnCamaras);
         }
 
         private void SetActiveButton(Button activeButton)
         {
-            // Reset all buttons
+            // Resetear todos los botones
             BtnCamaras.Tag = null;
             BtnIncidencias.Tag = null;
             BtnMapa.Tag = null;
             BtnUsuarios.Tag = null;
 
-            // Set the active button
+            // Establecer el botón activo
             activeButton.Tag = "Active";
         }
 

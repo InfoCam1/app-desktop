@@ -84,11 +84,7 @@ namespace InfoCam.Views
 
         private async void AddButton_Click(object sender, RoutedEventArgs e)
         {
-            var form = new IncidenciaFormWindow();
-            if (form.ShowDialog() == true)
-            {
-                await LoadIncidenciasAsync();
-            }
+            MessageBox.Show("Para crear una nueva incidencia acceda al mapa y haga doble click en el punto deseado", "Info", MessageBoxButton.OK, MessageBoxImage.Information);
         }
 
         private async void EditButton_Click(object sender, RoutedEventArgs e)

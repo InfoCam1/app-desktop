@@ -11,8 +11,8 @@ namespace InfoCam.Services
 {
     public class ApiService
     {
-        private const string BaseUrl = "http://10.10.16.85:8080/api";
-        // private const string BaseUrl = "http://db.toadstudios.net:8080/api";
+        //private const string BaseUrl = "http://10.10.16.85:8080/api";
+        private const string BaseUrl = "http://db.toadstudios.net:8080/api";
         private readonly HttpClient _client;
 
         public ApiService()

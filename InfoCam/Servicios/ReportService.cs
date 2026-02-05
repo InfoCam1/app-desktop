@@ -40,8 +40,7 @@ namespace InfoCam.Services
                                        .OrderByDescending(x => x.Count)
                                        .ToList();
 
-            // 3. NUEVO: Gráfico circular para tipos de incidencias
-            // Esto reemplaza o complementa al gráfico de barras
+            // 3.Gráfico circular para tipos de incidencias
             DrawIncidenciasPieChart(gfx, "Distribución Porcentual por Tipo", typeStats, ref yPoint);
 
             yPoint += 40;
@@ -49,7 +48,6 @@ namespace InfoCam.Services
             // 4. Gráficos detallados y tablas
             DrawBarChart(gfx, "Principales Causas", typeStats.Select(s => s.Label).ToList(), typeStats.Select(s => (double)s.Count).ToList(), ref yPoint, XColors.OrangeRed);
 
-            // ... (el resto de la lógica de tablas sigue aquí)
             document.Save(filePath);
             Process.Start(new ProcessStartInfo(filePath) { UseShellExecute = true });
         }
@@ -63,7 +61,6 @@ namespace InfoCam.Services
             foreach (var s in stats) total += s.Count;
             if (total == 0) return;
 
-            // Paleta de colores profesional para múltiples categorías
             XBrush[] colors = { XBrushes.RoyalBlue, XBrushes.OrangeRed, XBrushes.ForestGreen,
                         XBrushes.Goldenrod, XBrushes.Purple, XBrushes.Chocolate };
 
